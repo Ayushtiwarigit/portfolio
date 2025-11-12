@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  FaQuoteLeft,
-  FaQuoteRight,
-  FaStar,
-  FaChevronLeft,
-  FaChevronRight,
-} from "react-icons/fa";
+
+import { FaQuoteLeft, FaQuoteRight, FaStar, FaChevronLeft, FaChevronRight,} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTestimonials } from "../../redux/Slice/testimonialSlice";
 
@@ -17,13 +12,9 @@ export default function TestimonialsSlider() {
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Fetch testimonials from API on mount
   useEffect(() => {
     dispatch(fetchTestimonials());
   }, [dispatch]);
-
-  // Auto-rotate testimonials every 5 seconds
   useEffect(() => {
     if (testimonials.length === 0) return;
 
@@ -73,8 +64,7 @@ export default function TestimonialsSlider() {
   }
 
   const current = testimonials[currentIndex];
-  const rating = Number(current.rating ?? 0); // ensure numeric
-
+  const rating = Number(current.rating ?? 0);
   return (
     <motion.section
       id="testimonials"
@@ -91,8 +81,6 @@ export default function TestimonialsSlider() {
         <p className="text-gray-400 mb-12">
           Words from clients, colleagues, and collaborators who’ve experienced my work firsthand.
         </p>
-
-        {/* Testimonial Slider */}
         <div className="relative">
           <AnimatePresence mode="wait">
             <motion.div
@@ -128,8 +116,6 @@ export default function TestimonialsSlider() {
                   <p className="text-sm text-gray-400">{current.role}</p>
                 </div>
               </div>
-
-              {/* Stars only if rating is present */}
               {rating > 0 && (
                 <div className="flex justify-center mt-4">
                   {[...Array(5)].map((_, i) => (
@@ -144,8 +130,6 @@ export default function TestimonialsSlider() {
               )}
             </motion.div>
           </AnimatePresence>
-
-          {/* Navigation Arrows */}
           <button
             onClick={goToPrev}
             className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-purple-900 bg-opacity-50 text-white p-3 rounded-full hover:bg-purple-700 transition-colors"
@@ -158,8 +142,6 @@ export default function TestimonialsSlider() {
           >
             <FaChevronRight />
           </button>
-
-          {/* Navigation Dots */}
           <div className="flex justify-center mt-8 gap-2">
             {testimonials.map((_, index) => (
               <button
@@ -176,3 +158,4 @@ export default function TestimonialsSlider() {
     </motion.section>
   );
 }
+
